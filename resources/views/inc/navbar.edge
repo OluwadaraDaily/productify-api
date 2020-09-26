@@ -1,0 +1,32 @@
+<nav class="navbar is-dark">
+	<div class="container">
+		<div class="navbar-brand">
+			<a href="/" class="navbar-item"> Productify </a>
+		</div>
+		<div class="navbar-menu">
+			<div class="navbar-end">
+				@if(auth.user.is_admin)
+					<a href="/create" class="navbar-item"> Create Product </a>
+				@endif
+
+				@loggedIn
+					
+					<a href="/cart" class="navbar-item"> Cart </a>
+					
+					<div class="navbar-item has-dropdown is-hoverable">
+						<a href="#" class="navbar-link">
+							{{ auth.user.username }}
+						</a>
+						<div class="navbar-dropdown">
+							<a href="/logout" class="navbar-item">Logout</a>
+						</div>
+					</div>
+				@else
+					<a href="/login" class="navbar-item"> Login </a>
+					<a href="/register" class="navbar-item"> Register </a>
+				@endloggedIn
+			</div>
+			
+		</div>
+	</div>
+</nav>

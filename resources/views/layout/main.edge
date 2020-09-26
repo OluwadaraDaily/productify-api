@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		{{ style('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css') }}
+		
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.0/css/bulma.min.css" integrity="sha512-ADrqa2PY1TZtb/MoLZIZu/Z/LlPaWQeDMBV73EMwjGam43/JJ5fqW38Rq8LJOVGCDfrJeOMS3Q/wRUVzW5DkjQ==" crossorigin="anonymous" />
+
+		{{ style('main.css') }}
+
+		{{ script('main.js') }}
+		
+		<title>Productify</title>
+	</head>
+	<body>
+		@include('inc/navbar')
+		<div class="section">
+			<div class="container">
+				@!section('content')
+			</div>	
+		</div>
+		
+
+	 {{ script('https://code.jquery.com/jquery-3.2.1.slim.min.js') }}
+    {{ script('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js') }}
+    {{ script('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js') }}
+	</body>
+</html>

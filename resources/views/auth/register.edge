@@ -1,0 +1,59 @@
+@layout('layout.main')
+
+@section('content')
+	<div class="container">
+		<h1 class="display-4"> Registration </h1> <hr>
+
+		@include('inc.notification')
+
+		<form method="POST" action="{{ route('register') }}">
+			{{ csrfField() }}
+			<div class="form-group">
+				<div>
+					<label>Email</label>
+					<input 
+					type="email" 
+					name="email" 
+					class="form-control {{ hasErrorFor('email') ? 'border border-danger' : '' }}"
+					value="{{ old('email', '') }}" 
+					>
+				</div>
+				{{ elIf('<span class="text-danger">$self</span>', getErrorFor('email'), hasErrorFor('email')) }}
+
+				<div>
+					<label>Phone Number</label>
+					<input 
+					type="text" 
+					name="phone" 
+					class="form-control {{ hasErrorFor('phone') ? 'border border-danger' : '' }}"
+					value="{{ old('phone', '') }}" 
+					>
+				</div>
+				{{ elIf('<span class="text-danger">$self</span>', getErrorFor('phone'), hasErrorFor('phone')) }}
+
+				<div>
+					<label> Username </label>
+					<input 
+					type="text" 
+					name="username" 
+					class="form-control {{ hasErrorFor('username') ? 'border border-danger' : '' }}"
+					value="{{ old('username', '') }}">
+				</div>
+
+				{{ elIf('<span class="text-danger">$self</span>', getErrorFor('username'), hasErrorFor('username')) }}
+				<div>
+					<label> Password </label>
+					<input 
+					type="password" 
+					name="password" 
+					class="form-control {{ hasErrorFor('password') ? 'border border-danger' : '' }}"
+					value="{{ old('password', '') }}">
+				</div>
+
+				{{ elIf('<span class="text-danger">$self</span>', getErrorFor('password'), hasErrorFor('password')) }}
+			</div>
+			<input type="submit" class="btn btn-success" value="Register">
+		</form>
+		<a href="/login"> Login </a>
+	</div>
+@endsection

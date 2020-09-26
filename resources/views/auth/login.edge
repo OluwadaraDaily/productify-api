@@ -1,0 +1,46 @@
+@layout('layout.main')
+
+@section('content')
+	<div class="container">
+		<h1 class="display-4"> Login </h1> <hr>
+		<h1> {{ p1 }} </h1>
+		<h2> {{ p2 }} </h2>
+		<h2> {{ p3 }} </h2>
+		<h1> {{ p4 }} </h1>
+
+		@include('inc.notification')
+
+		<form method="POST" action="{{ route('login') }}">
+			{{ csrfField() }}
+			<div class="form-group">
+				<div>
+					<label>Email</label>
+					<input 
+					type="email" 
+					name="email" 
+					class="form-control">
+				</div>
+
+				<div>
+					<label> Password </label>
+					<input 
+					type="password" 
+					name="password" 
+					class="form-control">
+				</div>
+
+				<div>
+					<label>
+						<input type="checkbox" name="remember">
+						Remember Me
+					</label>
+				</div>
+			</div>
+			<input type="submit" class="btn btn-success" value="Login">
+		</form>
+		<a href="/register"> Register </a>
+		<p>
+			<a href="password/reset"> Forgot Password? </a>
+		</p>
+	</div>
+@endsection

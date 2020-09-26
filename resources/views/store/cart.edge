@@ -1,0 +1,24 @@
+@layout('layout.main')
+
+@section('content')
+    <h1 class="display-3"> Cart </h1> <hr>
+    
+	<table class="table">
+		<thead>
+			<tr>
+				<th>#ID</th>
+				<th>Product Name</th>
+				<th>Unit Price</th>
+			</tr>
+		</thead>
+		<tbody>
+			@each(item in order_items)
+				<tr>
+					<td>{{ item.id }}</td>
+					<td>{{ item.name }}</td>
+					<td>{{ item.price }}</td>
+				</tr>
+			@endeach
+		</tbody>
+	</table>    
+@endsection

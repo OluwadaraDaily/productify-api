@@ -1,0 +1,51 @@
+@layout('layout.main')
+
+@section('content')
+	<div class="container">
+		<h1 class="display-4"> Reset Password </h1> <hr>
+
+		@include('inc.notification')
+
+		<form method="POST" action="/password/reset">
+			{{ csrfField() }}
+
+			<input type="hidden" name="token" value="{{ token }}">
+			
+			<div class="form-group">
+				<div>
+					<label>Email</label>
+					<input 
+					type="email" 
+					name="email" 
+					class="form-control {{ hasErrorFor('email') ? 'border border-danger' : '' }}"
+					value="{{ old('email', '') }}" 
+					>
+				</div>
+				{{ elIf('<span class="text-danger">$self</span>', getErrorFor('email'), hasErrorFor('email')) }}
+
+				<div>
+					<label>Password</label>
+					<input 
+					type="password" 
+					name="password" 
+					class="form-control {{ hasErrorFor('password') ? 'border border-danger' : '' }}"
+					value="{{ old('password', '') }}">
+				</div>
+
+				{{ elIf('<span class="text-danger">$self</span>', getErrorFor('password'), hasErrorFor('password')) }}
+
+				<div>
+					<label>Confirm Password</label>
+					<input 
+					type="password" 
+					name="password_confirmation" 
+					class="form-control {{ hasErrorFor('password_confirmation') ? 'border border-danger' : '' }}"
+					value="{{ old('password_confirmation', '') }}" 
+					>
+				</div>
+				{{ elIf('<span class="text-danger">$self</span>', getErrorFor('password_confirmation'), hasErrorFor('password_confirmation')) }}				
+			</div>
+			<input type="submit" class="btn btn-success" value="Reset Password">
+		</form>
+	</div>
+@endsection
