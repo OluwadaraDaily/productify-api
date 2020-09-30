@@ -20,7 +20,7 @@ class RegisterController {
 		// Validate form Data
 		const validation = await validateAll(request.all(), {
 			email: 'required|email|unique:users,email',
-			phone: 'required|unique:users,phone'
+			phone: 'required|unique:users,phone',
 			username: 'required|unique:users,username',
 			password: 'required'
 		})
@@ -35,7 +35,7 @@ class RegisterController {
 		const user = await User.create({
 			username: request.input('username'),
 			email: request.input('email'),
-			phone: request.input('phone')
+			phone: request.input('phone'),
 			password: request.input('password'),
 			confirmation_token: randomString({ length:40 })
 		})
