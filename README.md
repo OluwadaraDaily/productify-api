@@ -1,3 +1,6 @@
+# Productify
+This is the API for the productify app written in Adonis JS. The API is connected to the Vue App.
+
 # Adonis fullstack application
 
 This is the fullstack boilerplate for AdonisJs, it comes pre-configured with.

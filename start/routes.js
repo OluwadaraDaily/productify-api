@@ -33,3 +33,5 @@ Route.get('create', 'ProductController.showCreateProductForm').middleware(['admi
 Route.post('create', 'ProductController.create').middleware(['admin'])
 Route.get('cart', 'StoreController.cartView').middleware(['auth'])
 Route.post('cart', 'StoreController.addToCart')
+
+Route.get('/api/products', 'Api/ProductController.getProducts')
