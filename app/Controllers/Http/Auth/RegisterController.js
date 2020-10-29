@@ -11,6 +11,8 @@ const randomString = require("random-string")
 // Import the Mail package
 const Mail = use('Mail')
 
+const Hash = use('Hash')
+
 class RegisterController {
 	async showRegisterForm({ view }) {
 		return view.render('auth.register')
@@ -36,7 +38,7 @@ class RegisterController {
 			username: request.input('username'),
 			email: request.input('email'),
 			phone: request.input('phone'),
-			password: request.input('password'),
+			password: await Hash.make(request.input('password')),
 			confirmation_token: randomString({ length:40 })
 		})
 		// Send confirmation email

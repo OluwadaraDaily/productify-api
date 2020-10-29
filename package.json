@@ -30,6 +30,7 @@
     "@adonisjs/validator": "^5.0.6",
     "cloudinary": "^1.23.0",
     "mysql": "^2.18.1",
+    "pg": "^8.4.1",
     "random-string": "^0.2.0",
     "twilio": "^3.49.2",
     "url-parse": "^1.4.7"
