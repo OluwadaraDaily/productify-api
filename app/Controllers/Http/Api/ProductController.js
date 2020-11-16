@@ -5,7 +5,7 @@ class ProductController {
 	async getProducts({ response }) {
 		let products = await Product.all()
 
-		return response.json(products)
+		response.send(products.toJSON())
 	}
 }
 
