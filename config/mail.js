@@ -25,8 +25,8 @@ module.exports = {
   smtp: {
     driver: "smtp",
     pool: true,
-    port: Env.get("SMTP_PORT", 587),
-    host: Env.get("SMTP_HOST", "smtp.mailgun.org"),
+    port: Env.get("SMTP_PORT"),
+    host: Env.get("SMTP_HOST"),
     secure: false,
     auth: {
     user: Env.get("MAIL_USERNAME"),
