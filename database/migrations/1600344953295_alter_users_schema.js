@@ -7,7 +7,7 @@ class AlterUsersSchema extends Schema {
   up () {
     this.alter('users', (table) => {
       // alter table
-      table.boolean('is_admin').defaultTo(0)
+      table.boolean('is_admin').defaultTo(1)
     })
   }
 
