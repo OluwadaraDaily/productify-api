@@ -20,16 +20,19 @@ class RegisterController {
 
 	async register({ request, session, response }) {
 		// Validate form Data
-		const validation = await validateAll(request.all(), {
-			email: 'required|email|unique:users,email',
-			phone: 'required|unique:users,phone',
-			username: 'required|unique:users,username',
-			password: 'required'
-		})
+		// const validation = await validateAll(request.all(), {
+		// 	email: 'required|email|unique:users,email',
+		// 	phone: 'required|unique:users,phone',
+		// 	username: 'required|unique:users,username',
+		// 	password: 'required'
+		// })
+
+		// Check if user exists
+		const check = await User.findBy('email', request.input('email')).getCount()
 
 		// Check if validation fails
-		if(validation.fails()) {
-			session.withErrors(validation.messages()).flashExcept(['password'])
+		if(check > 0) {
+			// session.withErrors(validation.messages()).flashExcept(['password'])
 			// return response.redirect('back')
 			return response.send("Ko le werk!")
 		}
