@@ -28,7 +28,7 @@ class StoreController {
 		})
 	}
 
-	async addToCart({ response, request, auth}) {
+	async addToCart({ response, request, auth }) {
 		const body = request.post()
 
 		// Check if user has an existing order

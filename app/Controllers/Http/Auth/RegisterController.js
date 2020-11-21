@@ -30,7 +30,8 @@ class RegisterController {
 		// Check if validation fails
 		if(validation.fails()) {
 			session.withErrors(validation.messages()).flashExcept(['password'])
-			return response.redirect('back')
+			// return response.redirect('back')
+			return response.send("Ko le werk!")
 		}
 
 		// Create  user
@@ -56,7 +57,8 @@ class RegisterController {
 			}
 		})
 
-		return response.redirect('/login')
+		// return response.redirect('/login')
+		return response.send("Check!!!!!")
 	}
 
 	async confirmEmail({ params, session, response }) {
