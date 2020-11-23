@@ -21,7 +21,7 @@ class LoginController {
 		}	
 
 		catch (e) {
-			return response.json({message: "You need to register first!"})
+			return response.json({message: "You need to register first!", "email": email, "password": password})
 		}
 
 		// Get user based on form Data
