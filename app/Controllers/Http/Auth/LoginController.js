@@ -7,14 +7,26 @@ class LoginController {
 		return view.render('auth.login')	
 	}
 
-	async login({ request, session, response, auth, view }) {
+	async login({ request, response, auth }) {
 		// Get form Data
-		const { email, password, remember } = request.all()
+		const email = request.input('email')
+		const password = request.input('password')
 
-		// Get user based on form Data & Confirm user is active
+		try{
+			if(await auth.attempt(email, password)) {
+				let user = User.findBy("email", email)
+				let accessToken = await auth.generate(user)
+				return response.json({"user": user, "access_token": accessToken})
+			}
+		}	
+
+		catch (e) {
+			return response.json({message: "You need to register first!"})
+		}
+
+		// Get user based on form Data
 		const user = await User.query()
 		.where('email', email)
-		.where('is_active', true)
 		.first()
 
 		// Verify user password
@@ -22,9 +34,7 @@ class LoginController {
 			const passwordVerified = await Hash.verify(password, user.password)
 	
 			if(passwordVerified) {
-				// Grant access to home page
-				await auth.remember(!!remember).login(user)
-				return response.redirect('/')
+				return response.json({"message": "User is "})
 			}
 			else {
 				session.flash({

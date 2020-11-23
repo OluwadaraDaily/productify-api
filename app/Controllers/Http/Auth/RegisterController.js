@@ -19,49 +19,30 @@ class RegisterController {
 	}
 
 	async register({ request, session, response }) {
-		// Validate form Data
-		// const validation = await validateAll(request.all(), {
-		// 	email: 'required|email|unique:users,email',
-		// 	phone: 'required|unique:users,phone',
-		// 	username: 'required|unique:users,username',
-		// 	password: 'required'
-		// })
+		// Get all user inputs
+		const username = request.input('username')
+		const password = request.input('password')
+		const email = request.input('email')
+		const phone = request.input('phone')
 
 		// Check if user exists
-		const check = await User.findBy('email', request.input('email')).getCount()
+		const check = await User.findBy('email', email).getCount()
 
-		// Check if validation fails
 		if(check > 0) {
-			// session.withErrors(validation.messages()).flashExcept(['password'])
-			// return response.redirect('back')
-			return response.send("Ko le werk!")
+			return response.json({message: "Already existing account"})
 		}
 
 		// Create  user
 		const user = await User.create({
-			username: request.input('username'),
-			email: request.input('email'),
-			phone: request.input('phone'),
-			password: await Hash.make(request.input('password')),
-			confirmation_token: randomString({ length:40 })
-		})
-		// Send confirmation email
-		await Mail.send('auth.emails.confirm_email', user.toJSON(), message => {
-			message.to(user.email)
-			.from('hello@productify.com')
-			.subject('PLEASE CONFIRM YOUR EMAIL ADDRESS')
+			username: username,
+			email: email,
+			phone: phone,
+			password: await Hash.make(password)
 		})
 
-		// Display Success Message
-		session.flash({
-			notification: {
-				type: 'success',
-				message: 'Registration Successful! A mail has been sent to your address for confirmation'
-			}
-		})
+		let accessToken = await auth.generate(user)
 
-		// return response.redirect('/login')
-		return response.send("Check!!!!!")
+		return response.json({"user": user, "access_token": accessToken})
 	}
 
 	async confirmEmail({ params, session, response }) {
