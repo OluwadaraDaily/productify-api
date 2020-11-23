@@ -33,12 +33,20 @@ class RegisterController {
 		}
 
 		// Create  user
-		const user = await User.create({
-			username: username,
-			email: email,
-			phone: phone,
-			password: await Hash.make(password)
-		})
+		let user = new User()
+		user.username = username
+		user.email = email
+		user.phone = phone
+		user.password = await Hash.make(password)
+
+		user = await user.save()
+		
+		// const user = await User.create({
+		// 	username: username,
+		// 	email: email,
+		// 	phone: phone,
+		// 	password: await Hash.make(password)
+		// })
 
 		let accessToken = await auth.generate(user)
 
