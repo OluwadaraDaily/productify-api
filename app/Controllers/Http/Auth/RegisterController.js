@@ -18,7 +18,7 @@ class RegisterController {
 		return view.render('auth.register')
 	}
 
-	async register({ request, session, response }) {
+	async register({ auth, request, session, response }) {
 		// Get all user inputs
 		const username = request.input('username')
 		const password = request.input('password')
