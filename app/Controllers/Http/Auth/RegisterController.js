@@ -28,7 +28,7 @@ class RegisterController {
 		// Check if user exists
 		const check = await User.findBy('email', email)
 
-		if(check === null) {
+		if(check) {
 			return response.json({message: "Already existing account"})
 		}
 
