@@ -26,9 +26,9 @@ class RegisterController {
 		const phone = request.input('phone')
 
 		// Check if user exists
-		const check = await User.findBy('email', email).getCount()
+		const check = await User.findBy('email', email)
 
-		if(check > 0) {
+		if(check === null) {
 			return response.json({message: "Already existing account"})
 		}
 
