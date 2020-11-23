@@ -5,7 +5,7 @@ const Schema = use('Schema')
 
 class AlterUsersSchema extends Schema {
   up () {
-    this.table('alter_users', (table) => {
+    this.table('users', (table) => {
       // alter table
       table.dropColumn('confirmation_token');
       table.dropColumn('is_active')
