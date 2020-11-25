@@ -13,7 +13,7 @@ class LoginController {
 		const password = request.input('password')
 
 		try{
-			if(await auth.attempt(email, await Hash.make(password))) {
+			if(await auth.attempt(email, password)) {
 				let user = User.findBy("email", email)
 				let accessToken = await auth.generate(user)
 				return response.json({"user": user, "access_token": accessToken})
