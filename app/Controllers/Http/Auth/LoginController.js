@@ -13,7 +13,7 @@ class LoginController {
 		const password = request.input('password')
 
 		try{
-			if(await auth.attempt(email, password)) {
+			if(await auth.attempt(email, await Hash.make(password))) {
 				let user = User.findBy("email", email)
 				let accessToken = await auth.generate(user)
 				return response.json({"user": user, "access_token": accessToken})
@@ -21,49 +21,49 @@ class LoginController {
 		}	
 
 		catch (e) {
-			return response.json({message: "You need to register first!", "email": email, "password": password})
+			return response.json({message: "Not registered"})
 		}
 
 		// Get user based on form Data
-		const user = await User.query()
-		.where('email', email)
-		.first()
+	// 	const user = await User.query()
+	// 	.where('email', email)
+	// 	.first()
 
-		// Verify user password
-		if(user) {
-			const passwordVerified = await Hash.verify(password, user.password)
+	// 	// Verify user password
+	// 	if(user) {
+	// 		const passwordVerified = await Hash.verify(password, user.password)
 	
-			if(passwordVerified) {
-				return response.json({"message": "User is "})
-			}
-			else {
-				session.flash({
-					notification: {
-						type: 'danger',
-						message: 'Incorrect Password!'
-					}
-				})
-				// return view.render('auth.login', {
-				// 	p1: password,
-				// 	p2: user.password,
-				// 	p3: p3,
-				// 	p4: p4
+	// 		if(passwordVerified) {
+	// 			return response.json({"message": "User is "})
+	// 		}
+	// 		else {
+	// 			session.flash({
+	// 				notification: {
+	// 					type: 'danger',
+	// 					message: 'Incorrect Password!'
+	// 				}
+	// 			})
+	// 			// return view.render('auth.login', {
+	// 			// 	p1: password,
+	// 			// 	p2: user.password,
+	// 			// 	p3: p3,
+	// 			// 	p4: p4
 
-				// })
-				return response.redirect('back')
-			}
-		}
-		// Else, you display an error message
-		session.flash({
-			notification: {
-				type: 'danger',
-				message: 'We could not verify your credentials. Make sure you have confirmed your email address'
-			}
-		})
-		return view.render('auth.login', {
-			user: user
-		})
-		return response.redirect('back')
+	// 			// })
+	// 			return response.redirect('back')
+	// 		}
+	// 	}
+	// 	// Else, you display an error message
+	// 	session.flash({
+	// 		notification: {
+	// 			type: 'danger',
+	// 			message: 'We could not verify your credentials. Make sure you have confirmed your email address'
+	// 		}
+	// 	})
+	// 	return view.render('auth.login', {
+	// 		user: user
+	// 	})
+	// 	return response.redirect('back')
 		
 	}
 }
