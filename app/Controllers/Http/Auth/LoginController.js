@@ -21,7 +21,7 @@ class LoginController {
 		}	
 
 		catch (e) {
-			return response.json({message: "Not registered"})
+			return response.json({message: "Not registered", error: e, email: email, password: password })
 		}
 
 		// Get user based on form Data
