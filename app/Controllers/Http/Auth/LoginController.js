@@ -14,7 +14,7 @@ class LoginController {
 
 		try{
 			if(await auth.attempt(email, password)) {
-				let user = User.findBy("email", email)
+				let user = await User.findBy("email", email)
 				let accessToken = await auth.generate(user)
 				return response.json({"user": user, "access_token": accessToken})
 			}
