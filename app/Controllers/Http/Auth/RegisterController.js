@@ -41,6 +41,8 @@ class RegisterController {
 
 		let accessToken = await auth.generate(user)
 
+		Object.assign(user, accessToken)
+
 		return response.json({"user": user, "access_token": accessToken})
 	}
 
