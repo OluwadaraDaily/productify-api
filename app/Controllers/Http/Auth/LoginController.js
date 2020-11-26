@@ -17,7 +17,7 @@ class LoginController {
 				let user = await User.findBy("email", email)
 				let accessToken = await auth.generate(user)
 				Object.assign(user, accessToken)
-				
+
 				return response.json({"user": user, "access_token": accessToken})
 			}
 		}	
@@ -29,14 +29,13 @@ class LoginController {
 	}
 
 	async getUser({ response, auth }) {
-		try {
+
 			if(await auth.check()) {
 				return await auth.getUser()
 			}
-		}
-		catch(e) {
+		
 			return response.json({message: "Unauthenticated"})
-		}
+		
 	}
 }
 
