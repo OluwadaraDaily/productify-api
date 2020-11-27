@@ -33,8 +33,11 @@ class LoginController {
 			if(await auth.check()) {
 				return await auth.getUser()
 			}
+			else {
+				return response.json({message: "Unauthenticated"})	
+			}
 		
-			return response.json({message: "Unauthenticated"})
+			
 		
 	}
 }
