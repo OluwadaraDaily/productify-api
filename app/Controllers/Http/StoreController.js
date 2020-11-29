@@ -68,6 +68,8 @@ class StoreController {
 			    body: "New Product Added. Product Name:" + order_items.name + ". Product Price:" + order_items.price
 			  })
 			  .then(message => console.log(message.sid));
+
+			  return response.send("Added to Cart")
 		}
 
 		// If not, create order and add order item
@@ -77,7 +79,7 @@ class StoreController {
 			})
 			const order_item = await OrderItem.create({
 				name: body['name'],
-				price: body['name'],
+				price: body['price'],
 				order_id: created_order.id
 			})
 
@@ -98,6 +100,10 @@ class StoreController {
 
 		response.send("Added to Cart!")
 
+	}
+
+	async addToCartApi({ response, request, auth, params }) {
+		return response.send(${params.id})
 	}
 		
 }

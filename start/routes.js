@@ -36,5 +36,6 @@ Route.post('cart', 'StoreController.addToCart')
 
 Route.get('user', 'Auth/LoginController.getUser')
 
+Route.post('cart/:id', 'StoreController.addToCartApi')
 
 Route.get('/api/products', 'Api/ProductController.getProducts')
