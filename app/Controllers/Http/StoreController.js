@@ -24,9 +24,9 @@ class StoreController {
 		.where('order_id', get_order.id)
 		.fetch()
 
-		const product = await Product.findBy('name', get_order_items.name)
+		// const product = await Product.findBy('name', get_order_items.name)
 
-		return response.json({order_items: get_order_items.toJSON(), image_url: product.image_url})
+		return response.json({order_items: get_order_items.toJSON()})
 
 		// return view.render('store.cart', {
 		// 	order_items: get_order_items.toJSON()
