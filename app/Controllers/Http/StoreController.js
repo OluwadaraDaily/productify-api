@@ -19,11 +19,14 @@ class StoreController {
 	async cartView({ auth, view, response }) {
 		// Get all Order Items corresponding to this user
 		const get_order = await Order.findBy('user_id', auth.user.id)
+
 		const get_order_items = await OrderItem.query()
 		.where('order_id', get_order.id)
 		.fetch()
 
-		return response.json({order_items: get_order_items.toJSON()})
+		const product = await Product.findBy('name', get_order_items.name)
+
+		return response.json({order_items: get_order_items.toJSON(), image_url: product.image_url})
 
 		// return view.render('store.cart', {
 		// 	order_items: get_order_items.toJSON()
