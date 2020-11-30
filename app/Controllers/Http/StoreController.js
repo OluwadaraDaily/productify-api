@@ -46,6 +46,7 @@ class StoreController {
 			const order_items = await OrderItem.create({
 				name: item.name,
 				price: item.price,
+				image_url: item.image_url
 				order_id: order.id
 			})
 
@@ -84,9 +85,13 @@ class StoreController {
 			const created_order = await Order.create({
 				user_id: auth.user.id
 			})
+
+			const item = await Product.findBy('id', body['id'])
+			
 			const order_items = await OrderItem.create({
 				name: item.name,
 				price: item.price,
+				image_url: item.image_url,
 				order_id: created_order.id
 			})
 
