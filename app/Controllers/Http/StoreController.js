@@ -23,9 +23,11 @@ class StoreController {
 		.where('order_id', get_order.id)
 		.fetch()
 
-		return view.render('store.cart', {
-			order_items: get_order_items.toJSON()
-		})
+		return response.json({order_items: get_order_items.toJSON()})
+
+		// return view.render('store.cart', {
+		// 	order_items: get_order_items.toJSON()
+		// })
 	}
 
 	async addToCart({ response, request, auth }) {
