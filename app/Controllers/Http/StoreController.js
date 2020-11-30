@@ -16,7 +16,7 @@ class StoreController {
 		})
 	}
 
-	async cartView({ auth, view }) {
+	async cartView({ auth, view, response }) {
 		// Get all Order Items corresponding to this user
 		const get_order = await Order.findBy('user_id', auth.user.id)
 		const get_order_items = await OrderItem.query()
