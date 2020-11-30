@@ -35,72 +35,72 @@ class StoreController {
 		const order = await Order.findBy('user_id', auth.user.id)
 
 		// If yes, just add items to the order item table with the order ID
-		if(order) {
-			const item = await Product.findBy('id', body['id'])
+		// if(order) {
+		// 	const item = await Product.findBy('id', body['id'])
 			
-			const order_items = await OrderItem.create({
-				name: item.name,
-				price: item.price,
-				order_id: order.id
-			})
+		// 	const order_items = await OrderItem.create({
+		// 		name: item.name,
+		// 		price: item.price,
+		// 		order_id: order.id
+		// 	})
 
-			const mailData = {
-				user: auth.user.toJSON(),
-				order: order_items
-			}
+		// 	const mailData = {
+		// 		user: auth.user.toJSON(),
+		// 		order: order_items
+		// 	}
 
-			//Send Mail 
-			await Mail.send('store.mail_item', mailData , message => {
-				message.to(auth.user.email)
-				.from('hello@productify.com')
-				.subject("ITEM ADDED TO CART")
-			})
+		// 	//Send Mail 
+		// 	await Mail.send('store.mail_item', mailData , message => {
+		// 		message.to(auth.user.email)
+		// 		.from('hello@productify.com')
+		// 		.subject("ITEM ADDED TO CART")
+		// 	})
 
-			// Send SMS
-			var accountSid = 'AC21ac7a5f38c844565b73dc1cc06c22f5'; // Your Account SID from www.twilio.com/console
-			var authToken = 'da953a156271c1e04a7d608782ffbdf5';   // Your Auth Token from www.twilio.com/console
+		// 	// Send SMS
+		// 	var accountSid = 'AC21ac7a5f38c844565b73dc1cc06c22f5'; // Your Account SID from www.twilio.com/console
+		// 	var authToken = 'da953a156271c1e04a7d608782ffbdf5';   // Your Auth Token from www.twilio.com/console
 
-			var client = new Twilio(accountSid, authToken);
+		// 	var client = new Twilio(accountSid, authToken);
 
 
-			client.messages
-			  .create({
-			    to: "+234" + auth.user.phone.substring(1,12),
-			    from: '+16413816559',
-			    body: "New Product Added. Product Name:" + order_items.name + ". Product Price:" + order_items.price
-			  })
-			  .then(message => console.log(message.sid));
+		// 	client.messages
+		// 	  .create({
+		// 	    to: "+234" + auth.user.phone.substring(1,12),
+		// 	    from: '+16413816559',
+		// 	    body: "New Product Added. Product Name:" + order_items.name + ". Product Price:" + order_items.price
+		// 	  })
+		// 	  .then(message => console.log(message.sid));
 
-			  return response.send("Added to Cart")
-		}
+		// 	  return response.send("Added to Cart")
+		// }
 
-		// If not, create order and add order item
-		else {
-			const created_order = await Order.create({
-				user_id: auth.user.id
-			})
-			const order_items = await OrderItem.create({
-				name: item.name,
-				price: item.price,
-				order_id: created_order.id
-			})
+		// // If not, create order and add order item
+		// else {
+		// 	const created_order = await Order.create({
+		// 		user_id: auth.user.id
+		// 	})
+		// 	const order_items = await OrderItem.create({
+		// 		name: item.name,
+		// 		price: item.price,
+		// 		order_id: created_order.id
+		// 	})
 
-			const mailData = {
-				user: auth.user.toJSON(),
-				order: order_item
-			}
+		// 	const mailData = {
+		// 		user: auth.user.toJSON(),
+		// 		order: order_item
+		// 	}
 
-			//Send Mail 
-			await Mail.send('store.mail_item', mailData , message => {
-				message.to(auth.user.email)
-				.from('hello@productify.com')
-				.subject("ITEM ADDED TO CART")
-			})
+		// 	//Send Mail 
+		// 	await Mail.send('store.mail_item', mailData , message => {
+		// 		message.to(auth.user.email)
+		// 		.from('hello@productify.com')
+		// 		.subject("ITEM ADDED TO CART")
+		// 	})
 
-			// Send SMS
-		}
+		// 	// Send SMS
+		// }
 
-		response.send("Added to Cart!")
+		return response.json({message: "Added to Cart!", order: order})
 
 	}
 		
