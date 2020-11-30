@@ -36,9 +36,11 @@ class StoreController {
 
 		// If yes, just add items to the order item table with the order ID
 		if(order) {
+			const item = await Product.findBy('id', body['id'])
+			
 			const order_items = await OrderItem.create({
-				name: body['name'],
-				price: body['price'],
+				name: item.name,
+				price: item.price,
 				order_id: order.id
 			})
 
@@ -77,9 +79,9 @@ class StoreController {
 			const created_order = await Order.create({
 				user_id: auth.user.id
 			})
-			const order_item = await OrderItem.create({
-				name: body['name'],
-				price: body['price'],
+			const order_items = await OrderItem.create({
+				name: item.name,
+				price: item.price,
 				order_id: created_order.id
 			})
 
@@ -100,10 +102,6 @@ class StoreController {
 
 		response.send("Added to Cart!")
 
-	}
-
-	async addToCartApi({ response, request, auth, params }) {
-		return response.send(${params.id})
 	}
 		
 }
