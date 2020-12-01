@@ -18,12 +18,13 @@ module.exports = {
   |
   */
 	origin: function (currentOrigin) {
-		if(Env.get('NODE_ENV​') === 'production' {
+		if(Env.get('NODE_ENV​') === 'production') {
 			return currentOrigin === 'productify-app.netlify.app'
 		}
 		else {
 			true
-		},
+		}
+	},
 
   /*
   |--------------------------------------------------------------------------
