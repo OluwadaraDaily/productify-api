@@ -1,5 +1,4 @@
 'use strict'
-const Env = use('Env')
 
 module.exports = {
   /*
@@ -17,14 +16,7 @@ module.exports = {
   | Function - Receives the current origin and should return one of the above values.
   |
   */
-	origin: function (currentOrigin) {
-		if(Env.get('NODE_ENV​') === 'production') {
-			return currentOrigin === 'productify-app.netlify.app'
-		}
-		else {
-			true
-		}
-	},
+  origin: ['http://localhost:8080', 'http://productify-app.netlify.app'],
 
   /*
   |--------------------------------------------------------------------------
