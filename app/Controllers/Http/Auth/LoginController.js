@@ -18,6 +18,8 @@ class LoginController {
 				let accessToken = await auth.generate(user)
 				Object.assign(user, accessToken)
 
+				response.header('Access-Control-Allow-Origin', true)
+
 				return response.json({"user": user, "access_token": accessToken})
 			}
 		}	
@@ -30,12 +32,14 @@ class LoginController {
 
 	async getUser({ response, auth }) {
 
-			if(await auth.check()) {
-				return await auth.getUser()
-			}
-			else {
-				return response.json({message: "Unauthenticated"})	
-			}
+		response.header('Access-Control-Allow-Origin', true)
+
+		if(await auth.check()) {
+			return await auth.getUser()
+		}
+		else {
+			return response.json({message: "Unauthenticated"})	
+		}
 		
 			
 		
