@@ -20,8 +20,6 @@ class StoreController {
 		// Get all Order Items corresponding to this user
 		const get_order = await Order.findBy('user_id', auth.user.id)
 
-		response.header('Access-Control-Allow-Origin', true)
-
 		const get_order_items = await OrderItem.query()
 		.where('order_id', get_order.id)
 		.fetch()
@@ -37,8 +35,6 @@ class StoreController {
 
 	async addToCart({ response, request, auth }) {
 		const body = request.post()
-
-		response.header('Access-Control-Allow-Origin', true)
 
 		// Check if user has an existing order
 		const order = await Order.findBy('user_id', auth.user.id)

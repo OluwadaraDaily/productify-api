@@ -23,8 +23,6 @@ class RegisterController {
 		const email = request.input('email')
 		const phone = request.input('phone')
 
-		response.header('Access-Control-Allow-Origin', true)
-
 		// Check if user exists
 		const check = await User.findBy('email', email)
 
@@ -44,8 +42,6 @@ class RegisterController {
 		let accessToken = await auth.generate(user)
 
 		Object.assign(user, accessToken)
-
-		response.header('Access-Control-Allow-Origin', true)
 
 		return response.json({"user": user, "access_token": accessToken})
 	}
